@@ -1,0 +1,11 @@
+site_name: My Docs
+nav:
+  - Главная: index.md
+  - Глава 1: chapters/01-intro.md
+  - Глава 2: chapters/02-basics.md
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - search.suggest
+    - content.tooltips
