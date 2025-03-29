@@ -1,8 +1,17 @@
 site_name: My Docs
 nav:
   - Главная: index.md
-  - Глава 1: chapters/01-intro.md
-  - Глава 2: chapters/02-basics.md
+  - Введение в микросервисную архитектуру: 01-introduction-to-microservices/index.md
+  - Разбиение монолита на микросервисы: 02-breaking-monolith/index.md
+  - Взаимодействие микросервисов: 03-interaction-of-microservices/index.md
+  - Управление данными в микросервисной архитектуре: 04-data-management/index.md
+  - Безопасность микросервисов: 05-security/index.md
+  - Развертывание и управление микросервисами: 06-deployment-and-management/index.md
+  - Мониторинг и логирование микросервисов: 07-monitoring-and-logging/index.md
+  - Антипаттерны микросервисов и способы их решения: 08-antipatterns/index.md
+  - Финальный проект: final-project/index.md
+
+
 theme:
   name: material
   features:
