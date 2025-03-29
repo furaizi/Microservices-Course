@@ -20,5 +20,11 @@ jobs:
     - name: Install dependencies
       run: pip install mkdocs mkdocs-material
 
+    - name: Build site
+      run: mkdocs build
+
     - name: Deploy to GitHub Pages
-      run: mkdocs gh-deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
