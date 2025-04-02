@@ -3,6 +3,7 @@ nav:
   - Главная: index.md
   - Введение в микросервисную архитектуру: 01-introduction-to-microservices/index.md
   - Разбиение монолита на микросервисы: 02-breaking-monolith/index.md
+  - Практическое задание №1. Взаимодействие микросервисов через REST API: lab-1/index.md
   - Взаимодействие микросервисов: 03-interaction-of-microservices/index.md
   - Управление данными в микросервисной архитектуре: 04-data-management/index.md
   - Безопасность микросервисов: 05-security/index.md
