@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'org.example'
+version = '1.0.0'
+
+publishing {
+    publications {
+        // Имя публикации может быть любым, часто 'mavenJava'
+        mavenJava(MavenPublication) {
+            from components.java // Указываем, что публикуем стандартный Java компонент
+            // groupId, artifactId, version обычно берутся из настроек проекта,
+            // но можно указать явно, если нужно:
+            // groupId = 'org.example.custom'
+            // artifactId = 'my-shared-dto'
+            // version = '1.0.1-SNAPSHOT'
+        }
+    }
+    repositories {
+        mavenLocal() // Указываем, что публикуем в локальный Maven репозиторий
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.38")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+test {
+    useJUnitPlatform()
+}
