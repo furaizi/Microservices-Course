@@ -1,0 +1,117 @@
+services:
+  user-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: users_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - user_db_data:/var/lib/postgresql/data
+      - ./init-scripts/user-db:/docker-entrypoint-initdb.d
+    networks:
+      - microservice-network
+
+  order-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: orders_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - order_db_data:/var/lib/postgresql/data
+      - ./init-scripts/order-db:/docker-entrypoint-initdb.d
+    networks:
+      - microservice-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - microservice-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      # --- Упрощенная конфигурация ОДНОГО слушателя для ВНУТРЕННЕГО доступа ---
+      # 1. Определяем одно имя слушателя (назовем его INTERNAL) и его протокол
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT
+      # 2. Указываем Kafka слушать ВНУТРИ контейнера на порту 9092 (или 29092, если хотите)
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092
+      # 3. Указываем Kafka РЕКЛАМИРОВАТЬ адрес для подключения ТОЛЬКО внутри сети Docker
+      #    Используем имя сервиса 'kafka' и порт, указанный в KAFKA_LISTENERS
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092
+      # 4. Указываем имя слушателя для межброкерного общения (если брокеров > 1)
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      # --- Конец упрощенной конфигурации ---
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - microservice-network
+
+
+  user-service:
+    build: ./user-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user-db:5432/users_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    networks:
+      - microservice-network
+    depends_on:
+      - user-db
+
+  order-service:
+    build: ./order-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://order-db:5432/orders_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      KAFKA_SERVER_URL: kafka:9092
+      CLIENT_USER_SERVICE_URL: http://user-service:8080/users
+    networks:
+      - microservice-network
+    depends_on:
+      - order-db
+      - user-service
+      - kafka
+
+  notification-service:
+    build: ./notification-service
+    environment:
+      KAFKA_SERVER_URL: kafka:9092
+      CLIENT_USER_SERVICE_URL: http://user-service:8080/users
+    networks:
+      - microservice-network
+    depends_on:
+      - kafka
+      - user-service
+
+  api-gateway:
+    build: ./api-gateway
+    environment:
+      USER_SERVICE_URL: http://user-service:8080
+      ORDER_SERVICE_URL: http://order-service:8080
+    ports:
+      - "8080:8080"
+    networks:
+      - microservice-network
+    depends_on:
+      - user-service
+      - order-service
+    
+
+
+volumes:
+  user_db_data:
+  order_db_data:
+
+networks:
+  microservice-network:
+    driver: bridge
