@@ -1,0 +1,1873 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lab-2/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>Управление данными в микросервисной архитектуре - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Управление данными в микросервисной архитектуре
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Главная
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01-introduction-to-microservices/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Введение в микросервисную архитектуру
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../02-breaking-monolith/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Разбиение монолита на микросервисы
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab-1/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Практическое задание №1. Взаимодействие микросервисов через REST API
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../03-interaction-of-microservices/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Взаимодействие микросервисов
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../lab-2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Практическое задание №2. Реализация API Gateway и Асинхронного Взаимодействия
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Управление данными в микросервисной архитектуре
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../05-security/index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Безопасность микросервисов
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../06-deployment-and-management/index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Развертывание и управление микросервисами
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../07-monitoring-and-logging/index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Мониторинг и логирование микросервисов
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../08-antipatterns/index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Антипаттерны микросервисов и способы их решения
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../final-project/index.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Финальный проект
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Главная
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction-to-microservices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Введение в микросервисную архитектуру
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-breaking-monolith/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Разбиение монолита на микросервисы
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Практическое задание №1. Взаимодействие микросервисов через REST API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-interaction-of-microservices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Взаимодействие микросервисов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Практическое задание №2. Реализация API Gateway и Асинхронного Взаимодействия
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Управление данными в микросервисной архитектуре
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Управление данными в микросервисной архитектуре
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      План
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Разделение базы данных: подходы
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Разделение базы данных: подходы">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Проблема управления данными в микросервисах
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-database-per-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Подход "База данных на сервис" (Database per Service)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Подход &#34;База данных на сервис&#34; (Database per Service)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Описание концепции
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Характеристики и преимущества
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Недостатки и сложности
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-shared-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Подход "Общая база данных" (Shared Database)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Подход &#34;Общая база данных&#34; (Shared Database)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Описание концепции
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Характеристики и преимущества
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Недостатки и сложности
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4. Когда может применяться?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Сравнение подходов
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Управление распределенными транзакциями и состоянием: Саги и Event Sourcing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Управление распределенными транзакциями и состоянием: Саги и Event Sourcing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Введение: Проблема согласованности в распределенных системах
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-saga-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Паттерн Сага (Saga Pattern)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Паттерн Сага (Saga Pattern)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Определение и назначение
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Механизм работы
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Способы координации Саг
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Сложности реализации Саг
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Паттерн Источник Событий (Event Sourcing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Паттерн Источник Событий (Event Sourcing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Определение и концепция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Механизм работы
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Преимущества Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4. Недостатки и сложности Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Взаимосвязь Саг и Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cqrs-command-query-responsibility-segregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Предпосылки возникновения CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Сущность паттерна CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Компоненты CQRS архитектуры
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Преимущества CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Недостатки и сложности CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. CQRS в контексте микросервисов
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Заключение
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-security/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Безопасность микросервисов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-deployment-and-management/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Развертывание и управление микросервисами
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-monitoring-and-logging/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Мониторинг и логирование микросервисов
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-antipatterns/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Антипаттерны микросервисов и способы их решения
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../final-project/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Финальный проект
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      План
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Разделение базы данных: подходы
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Разделение базы данных: подходы">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Проблема управления данными в микросервисах
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-database-per-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Подход "База данных на сервис" (Database per Service)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Подход &#34;База данных на сервис&#34; (Database per Service)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Описание концепции
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Характеристики и преимущества
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Недостатки и сложности
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-shared-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Подход "Общая база данных" (Shared Database)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Подход &#34;Общая база данных&#34; (Shared Database)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Описание концепции
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Характеристики и преимущества
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Недостатки и сложности
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4. Когда может применяться?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Сравнение подходов
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Управление распределенными транзакциями и состоянием: Саги и Event Sourcing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Управление распределенными транзакциями и состоянием: Саги и Event Sourcing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Введение: Проблема согласованности в распределенных системах
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-saga-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Паттерн Сага (Saga Pattern)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Паттерн Сага (Saga Pattern)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. Определение и назначение
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. Механизм работы
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. Способы координации Саг
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. Сложности реализации Саг
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Паттерн Источник Событий (Event Sourcing)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Паттерн Источник Событий (Event Sourcing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. Определение и концепция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. Механизм работы
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3. Преимущества Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4. Недостатки и сложности Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-event-sourcing" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Взаимосвязь Саг и Event Sourcing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cqrs-command-query-responsibility-segregation" class="md-nav__link">
+    <span class="md-ellipsis">
+      CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Предпосылки возникновения CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Сущность паттерна CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Компоненты CQRS архитектуры
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Преимущества CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Недостатки и сложности CQRS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-cqrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. CQRS в контексте микросервисов
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Заключение
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">Управление данными в микросервисной архитектуре</h1>
+<h2 id="_2">План</h2>
+<ol>
+<li><a href="#_3">Разделение базы данных: подходы</a></li>
+<li><a href="#event-sourcing">Управление распределенными транзакциями и состоянием: Саги и Event Sourcing</a></li>
+<li><a href="#cqrs-command-query-responsibility-segregation">CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов</a></li>
+<li><a href="#_4">Заключение</a></li>
+</ol>
+<h2 id="_3">Разделение базы данных: подходы</h2>
+<p>Сегодня мы рассмотрим одну из фундаментальных тем в проектировании микросервисных архитектур – управление данными, а именно, подходы к разделению баз данных между сервисами. Выбор стратегии управления данными оказывает критическое влияние на масштабируемость, отказоустойчивость, связанность и общую сложность системы.</p>
+<h3 id="1">1. Проблема управления данными в микросервисах</h3>
+<p>В монолитной архитектуре приложение обычно работает с единой, централизованной базой данных. Это упрощает управление транзакциями (благодаря ACID свойствам реляционных СУБД), обеспечение согласованности данных и выполнение запросов, объединяющих данные из разных модулей.</p>
+<p>Переход к микросервисной архитектуре, где приложение разбито на множество независимо развертываемых сервисов, ставит перед нами новые вызовы в области управления данными:</p>
+<ul>
+<li><strong>Согласованность данных:</strong> Как обеспечить целостность данных, распределенных по базам данных разных сервисов?</li>
+<li><strong>Транзакции:</strong> Как реализовать бизнес-операции, затрагивающие данные нескольких сервисов, без традиционных распределенных транзакций (которые часто считаются анти-паттерном в микросервисах из-за их сложности и влияния на доступность)?</li>
+<li><strong>Запросы:</strong> Как эффективно выполнять запросы, требующие объединения данных из разных сервисов?</li>
+<li><strong>Автономность сервисов:</strong> Как сохранить независимость и слабую связанность сервисов, если они зависят от общих данных?</li>
+</ul>
+<p>Для решения этих проблем существуют различные подходы к организации хранения данных в микросервисной среде. Два наиболее распространенных и фундаментально различных подхода – это "База данных на сервис" (Database per Service) и "Общая база данных" (Shared Database).</p>
+<h3 id="2-database-per-service">2. Подход "База данных на сервис" (Database per Service)</h3>
+<h4 id="21">2.1. Описание концепции</h4>
+<p>Это наиболее рекомендуемый и идеологически правильный подход в контексте микросервисной архитектуры. Основной принцип заключается в том, что <strong>каждый микросервис владеет своей собственной, приватной базой данных</strong>. Ни один другой сервис не имеет права напрямую обращаться к этой базе данных. Взаимодействие с данными сервиса возможно только через его публичный API (Application Programming Interface).</p>
+<h4 id="22">2.2. Характеристики и преимущества</h4>
+<ul>
+<li><strong>Инкапсуляция и слабая связанность (Loose Coupling):</strong> Изменения в схеме базы данных одного сервиса не влияют напрямую на другие сервисы. Это ключевое преимущество, обеспечивающее автономность команд и независимое развертывание.</li>
+<li><strong>Технологическая гетерогенность (Polyglot Persistence):</strong> Каждый сервис может выбрать тип хранилища данных (реляционная СУБД, NoSQL база данных, кэш и т.д.), наиболее подходящий для его конкретных задач и требований к производительности/масштабируемости. Сервис A может использовать PostgreSQL, сервис B – MongoDB, а сервис C – Redis.</li>
+<li><strong>Независимое масштабирование:</strong> Базу данных каждого сервиса можно масштабировать независимо от других, в соответствии с нагрузкой на конкретный сервис.</li>
+<li><strong>Изоляция сбоев:</strong> Сбой в базе данных одного сервиса не приводит к немедленному отказу других сервисов (хотя они могут временно потерять доступ к нужным данным через API отказавшего сервиса).</li>
+<li><strong>Четкие границы владения:</strong> Команда, отвечающая за сервис, полностью отвечает и за его базу данных.</li>
+</ul>
+<h4 id="23">2.3. Недостатки и сложности</h4>
+<ul>
+<li><strong>Реализация распределенных транзакций:</strong> Бизнес-транзакции, охватывающие несколько сервисов, становятся сложнее. Вместо ACID-транзакций часто применяются паттерны управления согласованностью в конечном счете (eventual consistency), такие как <strong>Saga Pattern</strong>. Саги представляют собой последовательность локальных транзакций в каждом сервисе, координируемых либо через оркестрацию (центральный координатор), либо через хореографию (обмен событиями). Реализация и отладка саг требует дополнительных усилий.</li>
+<li><strong>Обеспечение согласованности данных (Eventual Consistency):</strong> Данные в разных сервисах могут быть согласованы не мгновенно, а с некоторой задержкой. Это требует тщательного проектирования и понимания бизнес-требований к актуальности данных.</li>
+<li><strong>Сложность запросов к данным из нескольких сервисов:</strong> Получение данных, разбросанных по разным базам, требует либо вызовов API нескольких сервисов и агрегации результатов на стороне клиента/API Gateway, либо использования паттернов вроде <strong>API Composition</strong> или <strong>Command Query Responsibility Segregation (CQRS)</strong> с созданием специальных "read-only" представлений (view databases).</li>
+<li><strong>Операционная сложность:</strong> Управление множеством баз данных (резервное копирование, мониторинг, обновления) требует более развитой инфраструктуры и DevOps-практик.</li>
+</ul>
+<h3 id="3-shared-database">3. Подход "Общая база данных" (Shared Database)</h3>
+<h4 id="31">3.1. Описание концепции</h4>
+<p>В этом подходе несколько микросервисов используют <strong>одну и ту же физическую базу данных</strong>. Они могут обращаться к разным таблицам или даже к одним и тем же таблицам в рамках этой общей базы.</p>
+<h4 id="32">3.2. Характеристики и преимущества</h4>
+<ul>
+<li><strong>Простота (на начальном этапе):</strong> Этот подход может показаться проще при миграции от монолитной архитектуры, так как структура базы данных остается прежней.</li>
+<li><strong>Упрощенные транзакции:</strong> Бизнес-транзакции, затрагивающие данные, используемые разными сервисами в рамках <em>одной</em> базы данных, могут быть реализованы с использованием стандартных ACID-транзакций СУБД.</li>
+<li><strong>Простота запросов:</strong> Запросы, объединяющие данные из "разных" сервисов (которые фактически находятся в одной БД), выполняются стандартными SQL JOIN'ами.</li>
+</ul>
+<h4 id="33">3.3. Недостатки и сложности</h4>
+<ul>
+<li><strong>Сильная связанность (Tight Coupling):</strong> Это главный недостаток. Любое изменение в схеме базы данных (например, изменение таблицы, используемой сервисом B) потенциально может сломать сервис A или C, если они также зависят от этой части схемы. Это нарушает принцип независимого развертывания и эволюции сервисов.</li>
+<li><strong>Отсутствие технологической гибкости:</strong> Все сервисы привязаны к одной и той же технологии базы данных. Нельзя выбрать оптимальное хранилище для каждого сервиса.</li>
+<li><strong>Трудности масштабирования:</strong> База данных становится единой точкой отказа и узким местом для масштабирования. Нагрузка от всех сервисов ложится на одну БД.</li>
+<li><strong>Конфликты во время выполнения (Runtime Contention):</strong> Сервисы могут конкурировать за ресурсы базы данных (блокировки таблиц, пулы соединений), что ведет к проблемам производительности.</li>
+<li><strong>Размытые границы владения:</strong> Неясно, какая команда отвечает за конкретную часть схемы базы данных, что затрудняет координацию и развитие.</li>
+<li><strong>Нарушение инкапсуляции:</strong> Сервисы знают о внутренней структуре хранения данных друг друга, что противоречит идеологии микросервисов.</li>
+</ul>
+<h4 id="34">3.4. Когда может применяться?</h4>
+<p>Несмотря на существенные недостатки, подход с общей базой данных иногда рассматривается как временное решение:</p>
+<ul>
+<li><strong>На ранних этапах миграции монолита:</strong> Как промежуточный шаг, когда сервисы уже выделены, но разделение базы данных еще не завершено.</li>
+<li><strong>Для очень небольших систем:</strong> Где количество сервисов невелико, и команда разработки мала.</li>
+<li><strong>В рамках одного "ограниченного контекста" (Bounded Context):</strong> Если несколько сервисов тесно связаны и всегда развертываются вместе как единое целое (хотя это уже ставит под сомнение, являются ли они действительно <em>независимыми</em> микросервисами).</li>
+</ul>
+<p>Однако, как правило, этот подход считается <strong>анти-паттерном</strong> для долгосрочного развития микросервисной архитектуры.</p>
+<h3 id="4">4. Сравнение подходов</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Критерий</th>
+<th style="text-align: left;">Database per Service</th>
+<th style="text-align: left;">Shared Database</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Связанность</strong></td>
+<td style="text-align: left;">Слабая (Loose Coupling)</td>
+<td style="text-align: left;">Сильная (Tight Coupling)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Автономность команд</strong></td>
+<td style="text-align: left;">Высокая</td>
+<td style="text-align: left;">Низкая</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Масштабируемость</strong></td>
+<td style="text-align: left;">Высокая (независимое масштабирование)</td>
+<td style="text-align: left;">Ограниченная (БД - узкое место)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Технологии БД</strong></td>
+<td style="text-align: left;">Гибкий выбор (Polyglot Persistence)</td>
+<td style="text-align: left;">Ограничено одной технологией</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Сложность транзакций</strong></td>
+<td style="text-align: left;">Высокая (Саги, Eventual Consistency)</td>
+<td style="text-align: left;">Низкая (ACID в рамках одной БД)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Сложность запросов</strong></td>
+<td style="text-align: left;">Высокая (API Composition, CQRS)</td>
+<td style="text-align: left;">Низкая (SQL JOIN)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Операц. сложность</strong></td>
+<td style="text-align: left;">Высокая (много БД)</td>
+<td style="text-align: left;">Низкая (одна БД)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Изоляция сбоев</strong></td>
+<td style="text-align: left;">Высокая</td>
+<td style="text-align: left;">Низкая (сбой БД влияет на всех)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Идеология микросерв.</strong></td>
+<td style="text-align: left;">Соответствует</td>
+<td style="text-align: left;">Противоречит</td>
+</tr>
+</tbody>
+</table>
+<h2 id="event-sourcing">Управление распределенными транзакциями и состоянием: Саги и Event Sourcing</h2>
+<p>Продолжая наше обсуждение управления данными в микросервисной архитектуре, мы углубимся в два мощных паттерна, которые помогают решать проблемы согласованности данных и управления состоянием при использовании подхода "База данных на сервис": паттерн <strong>Сага (Saga)</strong> и паттерн <strong>Источник Событий (Event Sourcing)</strong>.</p>
+<h3 id="1_1">1. Введение: Проблема согласованности в распределенных системах</h3>
+<p>Как мы установили ранее, подход "База данных на сервис" обеспечивает слабую связанность и автономность, но усложняет реализацию бизнес-операций, затрагивающих несколько микросервисов. Традиционные ACID-транзакции, охватывающие несколько баз данных (распределенные транзакции с двухфазным коммитом, 2PC), плохо подходят для микросервисов из-за их требований к блокировкам и влияния на доступность системы.</p>
+<p>Возникает вопрос: как обеспечить выполнение бизнес-процесса, состоящего из шагов в разных сервисах, так, чтобы либо все шаги успешно завершились, либо система вернулась в согласованное состояние, если какой-то шаг не удался? Именно здесь на помощь приходит паттерн Сага. Параллельно, для эффективного управления состоянием и его историей в рамках отдельных сервисов (и для облегчения реализации Саг) часто используется паттерн Event Sourcing.</p>
+<h3 id="2-saga-pattern">2. Паттерн Сага (Saga Pattern)</h3>
+<h4 id="21_1">2.1. Определение и назначение</h4>
+<p><strong>Сага</strong> — это последовательность локальных транзакций, распределенных по нескольким микросервисам. Каждая локальная транзакция обновляет данные в рамках одного сервиса и публикует сообщение или событие, инициирующее следующую локальную транзакцию в Саге. Ключевая особенность Саги — наличие <strong>компенсирующих транзакций</strong> для каждого шага. Если какая-либо локальная транзакция в последовательности завершается неудачей, Сага выполняет компенсирующие транзакции в обратном порядке для отмены уже выполненных предшествующих шагов, тем самым обеспечивая семантическую атомарность бизнес-операции.</p>
+<p>Важно понимать, что Сага <strong>не обеспечивает ACID-изоляцию</strong> на уровне всей операции. Она гарантирует либо успешное завершение всех шагов (Commit), либо отмену эффектов всех выполненных шагов (Rollback через компенсацию), приводя систему к <strong>согласованности в конечном счете (eventual consistency)</strong>.</p>
+<h4 id="22_1">2.2. Механизм работы</h4>
+<ol>
+<li><strong>Инициация:</strong> Сага начинается при получении запроса или события.</li>
+<li><strong>Выполнение шагов:</strong> Последовательно выполняются локальные транзакции T1, T2, ..., Tn в соответствующих сервисах S1, S2, ..., Sn.</li>
+<li><strong>Компенсация:</strong> Для каждой транзакции Ti существует компенсирующая транзакция Ci, которая семантически отменяет действие Ti.</li>
+<li><strong>Обработка сбоев:</strong> Если транзакция Ti завершается неудачей, Сага инициирует выполнение компенсирующих транзакций C(i-1), ..., C2, C1 в обратном порядке.</li>
+</ol>
+<h4 id="23_1">2.3. Способы координации Саг</h4>
+<p>Существует два основных подхода к координации шагов Саги:</p>
+<p><strong>A. Хореография (Choreography-based Saga)</strong></p>
+<ul>
+<li><strong>Описание:</strong> Отсутствует центральный координатор. Каждый сервис, выполнив свою локальную транзакцию, публикует событие. Другие сервисы подписываются на эти события и реагируют на них, запуская свои локальные (и, возможно, компенсирующие) транзакции.</li>
+<li><strong>Пример (Заказ товара):</strong><ol>
+<li><code>Сервис Заказов</code>: Создает заказ (статус PENDING), публикует <code>OrderCreatedEvent</code>.</li>
+<li><code>Сервис Платежей</code>: Слушает <code>OrderCreatedEvent</code>, обрабатывает платеж.<ul>
+<li>Успех: Публикует <code>PaymentProcessedEvent</code>.</li>
+<li>Неудача: Публикует <code>PaymentFailedEvent</code>.</li>
+</ul>
+</li>
+<li><code>Сервис Склада</code>: Слушает <code>PaymentProcessedEvent</code>, резервирует товар.<ul>
+<li>Успех: Публикует <code>StockReservedEvent</code>.</li>
+<li>Неудача: Публикует <code>StockReservationFailedEvent</code>.</li>
+</ul>
+</li>
+<li><code>Сервис Заказов</code>: Слушает <code>StockReservedEvent</code> -&gt; меняет статус заказа на APPROVED. Слушает <code>PaymentFailedEvent</code> или <code>StockReservationFailedEvent</code> -&gt; меняет статус заказа на FAILED (компенсация не нужна, т.к. начальный статус PENDING).</li>
+<li><code>Сервис Платежей</code>: Слушает <code>StockReservationFailedEvent</code> -&gt; выполняет компенсирующую транзакцию (возврат платежа), публикует <code>PaymentRefundedEvent</code>.</li>
+</ol>
+</li>
+<li><strong>Преимущества:</strong><ul>
+<li>Простота: Нет единой точки отказа/логики.</li>
+<li>Слабая связанность: Сервисы не знают друг о друге, только о событиях.</li>
+</ul>
+</li>
+<li><strong>Недостатки:</strong><ul>
+<li>Сложность отслеживания: Трудно понять, на каком этапе находится Сага и почему произошел сбой.</li>
+<li>Риск циклических зависимостей между сервисами.</li>
+<li>Распределенная логика усложняет понимание и модификацию потока.</li>
+</ul>
+</li>
+</ul>
+<p><strong>B. Оркестрация (Orchestration-based Saga)</strong></p>
+<ul>
+<li><strong>Описание:</strong> Присутствует центральный <strong>оркестратор</strong> (это может быть отдельный сервис или часть логики инициирующего сервиса). Оркестратор явно указывает каждому сервису, какую локальную транзакцию выполнить. Он получает ответы (успех/неудача) и решает, какой шаг выполнить следующим или какие компенсирующие транзакции запустить.</li>
+<li><strong>Пример (Заказ товара с оркестратором):</strong><ol>
+<li><code>Клиент</code> -&gt; <code>Оркестратор Заказа</code>: Запрос на создание заказа.</li>
+<li><code>Оркестратор</code>:<ul>
+<li>-&gt; <code>Сервис Заказов</code>: Команда <code>CreateOrder</code> (статус PENDING). Ответ: <code>OrderCreated</code>.</li>
+<li>-&gt; <code>Сервис Платежей</code>: Команда <code>ProcessPayment</code>. Ответ: <code>PaymentProcessed</code> / <code>PaymentFailed</code>.</li>
+<li><em>(Если <code>PaymentFailed</code>)</em> -&gt; <code>Сервис Заказов</code>: Команда <code>RejectOrder</code>. Сага завершена (неудачно).</li>
+<li><em>(Если <code>PaymentProcessed</code>)</em> -&gt; <code>Сервис Склада</code>: Команда <code>ReserveStock</code>. Ответ: <code>StockReserved</code> / <code>StockReservationFailed</code>.</li>
+<li><em>(Если <code>StockReservationFailed</code>)</em> -&gt; <code>Сервис Платежей</code>: Команда <code>RefundPayment</code>. Ответ: <code>PaymentRefunded</code>. -&gt; <code>Сервис Заказов</code>: Команда <code>RejectOrder</code>. Сага завершена (неудачно).</li>
+<li><em>(Если <code>StockReserved</code>)</em> -&gt; <code>Сервис Заказов</code>: Команда <code>ApproveOrder</code>. Сага завершена (успешно).</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>Преимущества:</strong><ul>
+<li>Централизованная логика: Легче понять, отладить и модифицировать поток Саги.</li>
+<li>Явное управление состоянием Саги.</li>
+<li>Меньше прямых зависимостей между участвующими сервисами (они зависят только от оркестратора).</li>
+</ul>
+</li>
+<li><strong>Недостатки:</strong><ul>
+<li>Риск излишней централизации логики в оркестраторе.</li>
+<li>Оркестратор может стать узким местом или единой точкой отказа.</li>
+</ul>
+</li>
+</ul>
+<h4 id="24">2.4. Сложности реализации Саг</h4>
+<ul>
+<li><strong>Идемпотентность:</strong> Операции (особенно компенсирующие) должны быть идемпотентными (повторное выполнение дает тот же результат), чтобы справиться с повторной доставкой сообщений/команд.</li>
+<li><strong>Отсутствие изоляции:</strong> Необходимо учитывать, что другие запросы могут видеть промежуточные состояния системы во время выполнения Саги.</li>
+<li><strong>Отладка:</strong> Поиск причин сбоев в распределенной последовательности может быть нетривиальным.</li>
+</ul>
+<h3 id="3-event-sourcing">3. Паттерн Источник Событий (Event Sourcing)</h3>
+<h4 id="31_1">3.1. Определение и концепция</h4>
+<p><strong>Event Sourcing</strong> — это подход к персистентности (сохранению данных), при котором <strong>все изменения состояния приложения записываются как последовательность неизменяемых (immutable) событий</strong>, а не путем обновления текущего состояния сущности в базе данных. Текущее состояние объекта выводится путем последовательного применения (проигрывания) всех относящихся к нему событий из прошлого. Хранилище этих событий называется <strong>журналом событий (event log)</strong> или <strong>хранилищем событий (event store)</strong>.</p>
+<p>Вместо того чтобы хранить <code>OrderStatus = "APPROVED"</code>, мы храним последовательность: <code>[OrderCreated, PaymentProcessed, StockReserved, OrderApproved]</code>.</p>
+<h4 id="32_1">3.2. Механизм работы</h4>
+<ol>
+<li><strong>Запись событий:</strong> Когда происходит действие, изменяющее состояние (например, размещение заказа), генерируется событие (<code>OrderCreatedEvent</code>), содержащее всю необходимую информацию об этом изменении. Это событие записывается в конец журнала событий и не может быть изменено или удалено.</li>
+<li><strong>Восстановление состояния:</strong> Чтобы получить текущее состояние сущности (например, конкретного заказа), система читает все события для этой сущности из журнала и применяет их последовательно к пустой начальной сущности.</li>
+<li><strong>Снимки (Snapshots):</strong> Для оптимизации восстановления состояния сущностей с очень длинной историей событий могут периодически создаваться снимки (snapshots) — сохраненные версии состояния на момент определенного события. Восстановление начинается с последнего снимка, и проигрываются только события, произошедшие после него.</li>
+<li><strong>Публикация событий:</strong> Записанные события могут публиковаться во внешнюю шину сообщений для уведомления других частей системы (например, для обновления read-моделей в CQRS или запуска шагов Саги).</li>
+</ol>
+<h4 id="33-event-sourcing">3.3. Преимущества Event Sourcing</h4>
+<ul>
+<li><strong>Полный аудит (Audit Trail):</strong> Журнал событий является надежной историей всех изменений, что бесценно для аудита, отладки и анализа бизнес-процессов.</li>
+<li><strong>Временные запросы (Temporal Queries):</strong> Возможность восстановить состояние любой сущности на любой момент времени в прошлом.</li>
+<li><strong>Упрощение модели записи:</strong> Операция записи сводится к добавлению неизменяемого события, что обычно является быстрой и атомарной операцией.</li>
+<li><strong>Слабая связанность и гибкость:</strong> Продюсеры событий не знают о консьюмерах. Новые потребители могут быть добавлены для обработки исторических событий.</li>
+<li><strong>Основа для других паттернов:</strong> Event Sourcing естественным образом сочетается с CQRS (Command Query Responsibility Segregation), где события используются для обновления специализированных моделей чтения, и с хореографическими Сагами.</li>
+</ul>
+<h4 id="34-event-sourcing">3.4. Недостатки и сложности Event Sourcing</h4>
+<ul>
+<li><strong>Сложность запроса текущего состояния:</strong> Получение текущего состояния требует проигрывания событий, что может быть медленнее прямого чтения из традиционной БД (проблема частично решается снимками и CQRS).</li>
+<li><strong>Эволюция схемы событий (Event Schema Evolution):</strong> События неизменяемы. Если структура события меняется со временем, необходимо поддерживать обратную совместимость и реализовывать механизмы версионирования событий (например, преобразовывать старые версии событий в новые при чтении).</li>
+<li><strong>Концептуальная сложность:</strong> Требует иного мышления при моделировании данных и бизнес-логики.</li>
+<li><strong>Согласованность в конечном счете:</strong> Модели чтения (если используются) обновляются асинхронно и являются согласованными в конечном счете.</li>
+<li><strong>Инфраструктура:</strong> Требуется надежное хранилище событий (например, Kafka, EventStoreDB, или даже реляционная БД, используемая как журнал).</li>
+</ul>
+<h3 id="4-event-sourcing">4. Взаимосвязь Саг и Event Sourcing</h3>
+<p>Саги и Event Sourcing часто используются вместе, так как они дополняют друг друга:</p>
+<ul>
+<li><strong>Хореографические Саги:</strong> Event Sourcing является естественным способом реализации хореографии. Сервис, завершив локальную транзакцию, записывает событие в свой журнал (Event Sourcing) и публикует его. Другие сервисы реагируют на это опубликованное событие.</li>
+<li><strong>Оркестрационные Саги:</strong> Оркестратор может использовать журнал событий (если сам реализован с Event Sourcing) для отслеживания своего состояния. Кроме того, события, генерируемые участвующими сервисами (даже если они не используют Event Sourcing для <em>всего</em> своего состояния), могут служить сигналами для оркестратора о завершении или сбое шагов.</li>
+<li><strong>Компенсация и аудит:</strong> Журнал событий предоставляет детальную информацию о том, какие шаги Саги были выполнены, что может быть использовано для определения необходимых компенсирующих действий и для отладки сбоев.</li>
+</ul>
+<h2 id="cqrs-command-query-responsibility-segregation">CQRS (Command Query Responsibility Segregation) – Разделение Ответственности Команд и Запросов</h2>
+<p>Вслед за обсуждением подходов к разделению баз данных и паттернов Сага и Event Sourcing, мы рассмотрим еще один важный архитектурный паттерн – <strong>CQRS (Command Query Responsibility Segregation)</strong>, или Разделение Ответственности Команд и Запросов.</p>
+<h3 id="1-cqrs">1. Предпосылки возникновения CQRS</h3>
+<p>В традиционных системах управления информацией, часто построенных по принципам CRUD (Create, Read, Update, Delete), одна и та же модель данных (например, объект или набор таблиц в реляционной БД) используется как для чтения, так и для модификации данных. Это хорошо работает для простых приложений, но в сложных системах, особенно в распределенных, таких как микросервисы, такой подход может привести к ряду проблем:</p>
+<ul>
+<li><strong>Разные требования:</strong> Требования к операциям чтения (Queries) и операциям записи (Commands) часто сильно различаются. Чтение может требовать сложных объединений данных, денормализации для производительности, в то время как запись требует обеспечения консистентности, валидации бизнес-правил и атомарности.</li>
+<li><strong>Производительность:</strong> Оптимизация единой модели и хранилища данных одновременно для эффективного чтения и эффективной записи становится затруднительной или невозможной. Оптимизация для одного может негативно сказаться на другом.</li>
+<li><strong>Масштабируемость:</strong> Нагрузки на чтение и запись часто масштабируются по-разному. Например, в большинстве систем операции чтения происходят значительно чаще, чем операции записи. Единая модель затрудняет независимое масштабирование этих аспектов.</li>
+<li><strong>Сложность модели:</strong> Попытка удовлетворить всем требованиям (чтение, запись, валидация) в одной модели может сделать ее излишне сложной и трудной для понимания и поддержки.</li>
+</ul>
+<p>Паттерн CQRS предлагает решение этих проблем путем явного разделения моделей и путей обработки для операций чтения и записи.</p>
+<h3 id="2-cqrs">2. Сущность паттерна CQRS</h3>
+<p><strong>CQRS (Command Query Responsibility Segregation)</strong> — это архитектурный паттерн, который разделяет операции, изменяющие состояние системы (<strong>Команды – Commands</strong>), от операций, запрашивающих информацию о состоянии системы (<strong>Запросы – Queries</strong>).</p>
+<p>Ключевая идея заключается не просто в разделении методов на те, что изменяют состояние, и те, что не изменяют (это принцип Command-Query Separation, CQS, предложенный Бертраном Мейером), а в использовании <strong>разных моделей данных</strong> для обработки команд и запросов.</p>
+<ul>
+<li><strong>Сторона Команд (Write Side):</strong> Отвечает за обработку команд, валидацию бизнес-правил и изменение состояния системы. Использует <strong>модель записи (write model)</strong>, оптимизированную для консистентности и транзакционности.</li>
+<li><strong>Сторона Запросов (Read Side):</strong> Отвечает за обработку запросов и возврат данных. Использует одну или несколько <strong>моделей чтения (read models)</strong>, оптимизированных для конкретных сценариев чтения (например, денормализованные данные для UI).</li>
+</ul>
+<h3 id="3-cqrs">3. Компоненты CQRS архитектуры</h3>
+<p>Типичная реализация CQRS включает следующие компоненты:</p>
+<ul>
+<li><strong>Команды (Commands):</strong><ul>
+<li>Объекты, выражающие намерение изменить состояние системы (например, <code>PlaceOrderCommand</code>, <code>ChangeCustomerAddressCommand</code>).</li>
+<li>Содержат данные, необходимые для выполнения операции.</li>
+<li>Обычно именуются в повелительном наклонении.</li>
+<li>По своей природе являются асинхронными, хотя могут обрабатываться и синхронно. Не должны возвращать данные о состоянии (максимум – идентификатор или подтверждение).</li>
+</ul>
+</li>
+<li><strong>Обработчики Команд (Command Handlers):</strong><ul>
+<li>Классы/функции, отвечающие за прием команды.</li>
+<li>Валидируют команду.</li>
+<li>Взаимодействуют с моделью записи (например, загружают агрегат из DDD).</li>
+<li>Выполняют необходимую бизнес-логику, изменяя состояние модели записи.</li>
+<li>Сохраняют изменения в хранилище записи.</li>
+</ul>
+</li>
+<li><strong>Модель Записи (Write Model):</strong><ul>
+<li>Представление данных, оптимизированное для выполнения команд и обеспечения консистентности. Часто это доменная модель с агрегатами (в терминологии Domain-Driven Design), инкапсулирующая бизнес-логику.</li>
+<li>Хранилище записи (Write Store) обычно обеспечивает строгую консистентность (например, реляционная СУБД, или журнал событий при использовании Event Sourcing).</li>
+</ul>
+</li>
+<li><strong>События (Events - опционально, но часто):</strong><ul>
+<li>Объекты, описывающие факт того, что <em>что-то произошло</em> в системе в результате обработки команды (например, <code>OrderPlacedEvent</code>, <code>CustomerAddressChangedEvent</code>).</li>
+<li>Генерируются моделью записи после успешного изменения состояния.</li>
+<li>Используются для уведомления других частей системы, включая механизм синхронизации с моделью чтения.</li>
+</ul>
+</li>
+<li><strong>Запросы (Queries):</strong><ul>
+<li>Объекты, описывающие потребность в получении данных (например, <code>GetOrderDetailsQuery</code>, <code>FindActiveCustomersQuery</code>).</li>
+<li>Содержат параметры, необходимые для выборки данных.</li>
+<li>Не должны изменять состояние системы (идемпотентны).</li>
+</ul>
+</li>
+<li><strong>Обработчики Запросов (Query Handlers):</strong><ul>
+<li>Классы/функции, отвечающие за прием запроса.</li>
+<li>Обращаются напрямую к модели(ям) чтения.</li>
+<li>Извлекают необходимые данные (часто в виде DTO - Data Transfer Objects).</li>
+<li>Возвращают данные клиенту.</li>
+</ul>
+</li>
+<li><strong>Модель Чтения (Read Model):</strong><ul>
+<li>Представление(я) данных, оптимизированное(ые) для конкретных запросов. Может быть сильно денормализованной.</li>
+<li>Может существовать несколько разных моделей чтения для разных сценариев использования (например, одна для отображения списка заказов, другая для поиска товаров, третья для отчетов).</li>
+<li>Хранилище(а) чтения (Read Store(s)) могут использовать различные технологии (реляционные СУБД с денормализованными таблицами, документные БД, полнотекстовые поисковые движки, кэши), оптимизированные для скорости чтения.</li>
+</ul>
+</li>
+<li><strong>Механизм Синхронизации Данных:</strong><ul>
+<li>Процесс, отвечающий за обновление модели(ей) чтения на основе изменений, произошедших в модели записи.</li>
+<li><strong>Асинхронная синхронизация (через события):</strong> Наиболее распространенный подход. Обработчик команды сохраняет изменения и публикует событие. Отдельный процесс (проектор) подписывается на событие и обновляет модель(и) чтения. Приводит к <strong>согласованности в конечном счете (eventual consistency)</strong>.</li>
+<li><strong>Синхронная синхронизация:</strong> Обновление модели чтения происходит в той же транзакции, что и обновление модели записи. Упрощает консистентность, но сильнее связывает модели и может влиять на производительность записи.</li>
+<li><strong>Прямая запись в обе модели (Dual Writes):</strong> Не рекомендуется из-за сложности обеспечения атомарности и консистентности.</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-cqrs">4. Преимущества CQRS</h3>
+<ul>
+<li><strong>Независимое масштабирование:</strong> Возможность масштабировать часть системы, отвечающую за чтение, независимо от части, отвечающей за запись (например, добавить больше реплик для чтения).</li>
+<li><strong>Оптимизированная производительность:</strong> Модели и хранилища данных могут быть выбраны и настроены оптимально для своих задач: запись – для транзакционной целостности, чтение – для скорости ответа на запросы.</li>
+<li><strong>Технологическая гибкость:</strong> Можно использовать разные технологии баз данных для хранения модели записи и моделей чтения (Polyglot Persistence в рамках одного сервиса/контекста).</li>
+<li><strong>Упрощение моделей:</strong> Каждая модель (записи и чтения) решает более узкий круг задач, что может привести к их упрощению по сравнению с единой универсальной моделью.</li>
+<li><strong>Лучшее соответствие задачам:</strong> Команды часто соответствуют действиям пользователя (Task-Based UI), а запросы – отображению информации.</li>
+<li><strong>Естественная интеграция с Event Sourcing:</strong> CQRS идеально сочетается с Event Sourcing, где журнал событий выступает в роли хранилища записи, а проекции событий обновляют модели чтения.</li>
+</ul>
+<h3 id="5-cqrs">5. Недостатки и сложности CQRS</h3>
+<ul>
+<li><strong>Повышенная сложность архитектуры:</strong> Система состоит из большего количества компонентов, требуется настройка взаимодействия между ними.</li>
+<li><strong>Согласованность в конечном счете (Eventual Consistency):</strong> При асинхронной синхронизации модели чтения могут отставать от модели записи. Это требует соответствующего проектирования UI/UX и бизнес-процессов. Пользователь может не сразу увидеть результаты своих действий.</li>
+<li><strong>Надежность механизма синхронизации:</strong> Требуется обеспечить надежную доставку событий или другой механизм обновления моделей чтения, включая обработку ошибок.</li>
+<li><strong>Возможное дублирование кода/данных:</strong> Некоторые структуры данных могут быть представлены по-разному в модели записи и модели чтения.</li>
+<li><strong>Накладные расходы на инфраструктуру:</strong> Может потребоваться развертывание и поддержка нескольких хранилищ данных.</li>
+<li><strong>Не для всех систем:</strong> CQRS является избыточным для простых CRUD-приложений. Выгоды проявляются в сложных доменах с высокими требованиями к производительности и масштабируемости или при наличии существенно различающихся моделей чтения и записи.</li>
+</ul>
+<h3 id="6-cqrs">6. CQRS в контексте микросервисов</h3>
+<p>Паттерн CQRS может применяться как внутри одного микросервиса, так и на уровне взаимодействия между ними:</p>
+<ul>
+<li><strong>CQRS внутри микросервиса:</strong> Микросервис инкапсулирует свою модель записи и одну или несколько моделей чтения. Это позволяет оптимизировать производительность и масштабируемость отдельного сервиса, не усложняя взаимодействие с другими.</li>
+<li><strong>CQRS для агрегации данных:</strong> Модель чтения может создаваться путем агрегации событий, опубликованных <em>несколькими</em> микросервисами. Это позволяет создавать специализированные "view-сервисы" или проекции для сложных запросов, охватывающих данные разных доменов. Такой подход требует тщательного управления зависимостями и консистентностью.</li>
+</ul>
+<h2 id="_4">Заключение</h2>
+<ol>
+<li><strong>Подход "База данных на сервис"</strong> является предпочтительным, так как он обеспечивает слабую связанность, автономность и масштабируемость, необходимые для успешной реализации микросервисной архитектуры. Однако он требует более сложных подходов к обеспечению согласованности данных и реализации распределенных транзакций (например, с использованием паттерна Saga и принципа Eventual Consistency).</li>
+<li><strong>Подход "Общая база данных"</strong> проще на начальных этапах, но ведет к сильной связанности, ограничивает масштабируемость и технологический выбор, и в долгосрочной перспективе препятствует получению основных преимуществ микросервисов. Его следует избегать или использовать только как временное решение с четким планом перехода к разделению баз данных.</li>
+<li><strong>Саги</strong> предоставляют механизм для управления распределенными бизнес-транзакциями в микросервисной архитектуре, обеспечивая согласованность в конечном счете без использования блокирующих распределенных транзакций. Выбор между <strong>хореографией</strong> и <strong>оркестрацией</strong> зависит от сложности процесса и требований к связанности системы.</li>
+<li><strong>Event Sourcing</strong> предлагает альтернативный подход к управлению состоянием, сохраняя полную историю изменений в виде неизменяемых событий. Это обеспечивает мощные возможности аудита, анализа и гибкости, но вносит свои сложности, особенно в части запросов и эволюции схемы событий.</li>
+<li><strong>CQRS</strong> — это мощный архитектурный паттерн, позволяющий эффективно решать проблемы производительности, масштабируемости и сложности управления данными путем разделения операций записи (Команд) и чтения (Запросов) с использованием отдельных моделей. Он особенно полезен в сложных системах и микросервисных архитектурах с высокими или асимметричными нагрузками на чтение и запись.<br />
+Однако CQRS вносит дополнительную сложность, особенно связанную с синхронизацией данных и управлением согласованностью в конечном счете. </li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "search.suggest", "content.tooltips"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
