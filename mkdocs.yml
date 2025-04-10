@@ -7,6 +7,7 @@ nav:
   - Взаимодействие микросервисов: 03-interaction-of-microservices/index.md
   - Практическое задание №2. Реализация API Gateway и Асинхронного Взаимодействия: lab-2/index.md
   - Управление данными в микросервисной архитектуре: 04-data-management/index.md
+  - Практическое задание №3. Реализация паттерна Saga для управления транзакциями в микросервисах: lab-3/index.md
   - Безопасность микросервисов: 05-security/index.md
   - Развертывание и управление микросервисами: 06-deployment-and-management/index.md
   - Мониторинг и логирование микросервисов: 07-monitoring-and-logging/index.md
